@@ -1,0 +1,122 @@
+*{box-sizing:border-box}
+:root{--cyan:#65e7ff;--gold:#ffbd4a;--ink:#071426}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,sans-serif;color:#f5f8ff}
+body{background:radial-gradient(ellipse at 50% 0%,#18385a 0%,#0b1b30 42%,#050b15 100%);overflow-x:hidden}
+.page-shell{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:22px 12px 18px}
+.brand{width:min(540px,100%);display:flex;align-items:center;gap:12px;margin:0 auto 16px}
+.brand-mark{width:42px;height:42px;border:1px solid #5fe5ff88;border-radius:13px;display:grid;place-items:center;color:var(--cyan);font-size:25px;background:linear-gradient(145deg,#1b4762,#0b1a2b);box-shadow:0 0 25px #31c9ff22}
+.eyebrow{margin:0 0 3px;font-size:9px;font-weight:800;letter-spacing:3px;color:var(--cyan)}
+.brand h1{margin:0;font:800 20px Orbitron,sans-serif;letter-spacing:2px}.brand h1 span{color:var(--gold)}
+.game-wrap{width:500px;max-width:100%;position:relative}
+.game{width:500px;height:600px;position:relative;overflow:hidden;border:1px solid #9deaff55;border-radius:18px;background:linear-gradient(180deg,#3b9bc6 0%,#9bd7df 38%,#e8c78a 69%,#315d45 100%);box-shadow:0 24px 70px #0009,0 0 0 5px #ffffff08,0 0 40px #42cfff20;isolation:isolate}
+.scene-sky{position:absolute;inset:0 0 35%;background:linear-gradient(180deg,#1475a8 0%,#62c4d7 65%,#f5d5a0 100%);z-index:-4}
+.scene-sky:before,.scene-sky:after{content:"";position:absolute;width:100px;height:28px;border-radius:50%;background:#ffffff88;filter:blur(12px);top:17%;left:9%;box-shadow:25px -9px 0 3px #ffffff66,54px 2px 0 -2px #ffffff66}
+.scene-sky:after{left:auto;right:8%;top:29%;transform:scale(.7)}
+.sun-glow{position:absolute;width:170px;height:170px;border-radius:50%;right:45px;top:65px;background:radial-gradient(circle,#fff6c9aa 0%,#fff0a044 38%,transparent 72%);z-index:-3}
+.mountain{position:absolute;left:-10%;width:120%;height:230px;bottom:29%;z-index:-2;clip-path:polygon(0 100%,0 75%,14% 38%,24% 70%,40% 20%,55% 68%,69% 30%,82% 72%,92% 45%,100% 78%,100% 100%);background:linear-gradient(145deg,#457f83,#24545b)}
+.mountain-back{bottom:33%;opacity:.65;transform:scale(1.15);background:#719b91}
+.mountain-front{background:linear-gradient(145deg,#376b5d,#183f3d)}
+.side-foliage{position:absolute;bottom:0;width:23%;height:48%;z-index:-1;opacity:.9;background:radial-gradient(ellipse at 50% 100%,#173e2d 0 22%,transparent 23%),radial-gradient(ellipse at 30% 75%,#286343 0 24%,transparent 25%),radial-gradient(ellipse at 75% 58%,#1c5139 0 26%,transparent 27%),linear-gradient(180deg,transparent,#1a4936)}
+.foliage-left{left:0}.foliage-right{right:0;transform:scaleX(-1)}
+#scene{position:absolute;width:500px;height:600px;left:0;top:0;perspective:600px;perspective-origin:50% 0%;transform-style:preserve-3d;overflow:hidden}
+#road{position:absolute;width:400px;margin-left:-200px;height:2500px;left:50%;bottom:0;transform-origin:bottom center;transform:rotateX(60deg);background-color:#292d32;background-image:linear-gradient(90deg,#20252b 0%,#454b50 50%,#20252b 100%),url('road.png');background-blend-mode:overlay,normal;background-repeat:repeat-y;background-size:100% 100%,contain;filter:contrast(1.08) saturate(.72)}
+.road-edge{position:absolute;bottom:-20px;height:380px;width:8px;border-radius:8px;background:linear-gradient(180deg,#ffe3a0,#d68a35);box-shadow:0 0 12px #ffbf4a88;z-index:1;transform-origin:bottom}
+.road-edge-left{left:49px;transform:rotateX(60deg)}.road-edge-right{right:49px;transform:rotateX(60deg)}
+#runner{width:184px;height:244px;position:absolute;left:50%;top:0;margin-left:-92px;margin-top:-122px;background:url('runner.png') no-repeat;background-size:736px 244px;animation:run .3s steps(4) infinite;z-index:10;filter:drop-shadow(0 9px 5px #07121b88);transform-origin:50% 85%}
+#runner.dead{animation:death .8s ease-out forwards}
+#runner-shadow{position:absolute;left:50%;top:0;width:62px;height:18px;margin-left:-31px;margin-top:-9px;border-radius:50%;background:#07121b88;filter:blur(5px);z-index:2;transform-origin:center}
+@keyframes run{from{background-position:0 0}to{background-position:-736px 0}}
+@keyframes death{0%{filter:brightness(1)}100%{filter:grayscale(1) brightness(.6);transform:translateY(20px) rotate(25deg)}}
+.hud{position:absolute;z-index:20;left:15px;right:15px;top:15px;display:flex;align-items:flex-start;gap:10px;pointer-events:none}
+.hud-stat,.hud-score{min-width:82px;padding:9px 12px;border:1px solid #ffffff3b;border-radius:11px;background:linear-gradient(145deg,#071b2ddd,#102f45cc);box-shadow:0 5px 18px #00101d55;backdrop-filter:blur(10px)}
+.hud-score{margin-left:auto;text-align:right}
+.hud-label{display:block;font:700 8px Orbitron,sans-serif;letter-spacing:1.8px;color:#a7d9e6}
+.hud strong{display:block;margin-top:3px;font:700 21px Orbitron,sans-serif;color:white;text-shadow:0 0 12px #59dfff66}
+.icon-button{pointer-events:auto;border:1px solid #ffffff55;border-radius:10px;width:38px;height:40px;color:#fff;background:#092238cc;font-size:20px;cursor:pointer;box-shadow:0 5px 18px #00101d55}
+.progress-track{position:absolute;z-index:20;top:76px;left:15px;right:15px;height:3px;border-radius:9px;background:#ffffff45;overflow:hidden}
+#progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--gold));box-shadow:0 0 9px var(--cyan)}
+.overlay{position:absolute;inset:0;z-index:30;display:grid;place-items:center;padding:20px;background:linear-gradient(180deg,#04111a55,#06101dcc);backdrop-filter:blur(5px)}
+.overlay.hidden{display:none}
+.modal-card{width:min(370px,100%);padding:30px 26px 24px;text-align:center;border:1px solid #a8edff55;border-radius:22px;background:linear-gradient(145deg,#102e43ee,#071827f5);box-shadow:0 25px 70px #0008,0 0 35px #3dcfff1a}
+.cat-emoji{font-size:54px;filter:drop-shadow(0 8px 10px #0007);margin-bottom:10px}
+.modal-card h2{margin:8px 0 12px;font:800 30px/1.2 Orbitron,sans-serif;letter-spacing:1px}
+.modal-card h2 span{color:var(--gold)}
+.modal-copy{max-width:270px;margin:0 auto 22px;color:#b7d1dc;font-size:12px;line-height:1.7}
+.primary-button{width:100%;border:0;border-radius:12px;padding:15px 18px;color:#102033;background:linear-gradient(110deg,#ffe18b,#ffb83e);font:800 12px Orbitron,sans-serif;letter-spacing:1.5px;cursor:pointer;box-shadow:0 7px 22px #ffb83e3d;transition:transform .15s,filter .15s}
+.primary-button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.compact-card{padding-top:35px;padding-bottom:28px}.compact-card h2{margin:12px 0 24px}
+.result-row{display:flex;justify-content:center;gap:36px;margin:0 0 24px}.result-row strong{display:block;margin-top:6px;font:700 25px Orbitron,sans-serif;color:var(--gold)}
+.footer-note{margin:18px 0 0;color:#7898a9;font:700 8px Orbitron,sans-serif;letter-spacing:1.6px;text-align:center}.status-dot{display:inline-block;width:6px;height:6px;margin-right:6px;border-radius:50%;background:#65e7a4;box-shadow:0 0 8px #65e7a4}.footer-divider{padding:0 8px;color:#42647a}
+.bomb{position:absolute;left:50%;top:0;width:38px;height:38px;margin-left:-19px;display:grid;place-items:center;border-radius:11px;border:1px solid #ff8a9d;background:radial-gradient(circle at 30% 25%,#ff9ca5,#d51d45 60%,#6d0926);box-shadow:0 5px 12px #0008,0 0 15px #ff245855;font-size:22px}
+.bomb:after{content:'💣'}
+.coin{position:absolute;left:50%;top:0;width:30px;height:30px;margin-left:-15px;display:grid;place-items:center;border:2px solid #fff0a1;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff7a7,#ffc329 45%,#c87808 100%);box-shadow:0 0 14px #ffd54d99,0 4px 8px #0007;color:#7c4300;font-size:16px;animation:coin-glow 1s ease-in-out infinite alternate}
+.coin:after{content:'★';font-size:15px;font-weight:900}
+@keyframes coin-glow{from{filter:brightness(1);box-shadow:0 0 10px #ffd54d77,0 4px 8px #0007}to{filter:brightness(1.3);box-shadow:0 0 20px #ffd54dcc,0 4px 8px #0007}}
+@media(max-width:540px){.page-shell{padding-top:12px}.brand{margin-bottom:12px}.brand h1{font-size:17px}.game-wrap{width:100%}.game{transform-origin:top left}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
+/* New obstacle visuals and collision effects */
+.rock,.bush{position:absolute;left:50%;top:0;display:grid;place-items:center;transform-origin:50% 85%;filter:drop-shadow(0 7px 5px #0008)}
+.rock{width:48px;height:42px;margin-left:-24px;font-size:39px}
+.rock:after{content:'🪨'}
+.bush{width:48px;height:46px;margin-left:-24px;font-size:39px}
+.bush:after{content:'🌿'}
+.bomb{font-size:0}
+.bomb:after{content:'💣';font-size:25px}
+.rock-falling{filter:drop-shadow(0 10px 5px #0009)}
+#runner.blast{animation:runner-blast .72s ease-out forwards!important}
+@keyframes runner-blast{
+  0%{filter:brightness(1) drop-shadow(0 9px 5px #07121b88);opacity:1}
+  25%{filter:brightness(3) sepia(1) saturate(5);opacity:1;transform:translateY(-8px) scale(1.12)}
+  65%{filter:brightness(2) sepia(1) saturate(6);opacity:.75;transform:translateY(8px) scale(.85)}
+  100%{filter:brightness(0) saturate(0);opacity:0;transform:translateY(18px) scale(.55)}
+}
+.impact-effect{position:absolute;left:50%;top:0;width:90px;height:90px;margin:-45px 0 0 -45px;z-index:15;pointer-events:none;opacity:0}
+.impact-effect.active{opacity:1;animation:blast-burst .72s ease-out forwards}
+.impact-effect:before{content:'💥';display:grid;place-items:center;width:100%;height:100%;font-size:76px;filter:drop-shadow(0 0 15px #ff7b24)}
+@keyframes blast-burst{
+  0%{opacity:0;scale:.15;filter:blur(4px)}
+  22%{opacity:1;scale:1.2;filter:blur(0)}
+  70%{opacity:.9;scale:1.45}
+  100%{opacity:0;scale:1.8}
+}
+
+/* Smooth rendering for moving game objects */
+.coin,.bomb,.rock,.bush,#runner,.impact-effect{
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+.rock,.bush,.bomb{
+  transform-origin: 50% 85%;
+}
+.rock-falling{
+  transition: filter .12s ease-out;
+}
+#runner.blast{
+  animation: runner-blast .82s cubic-bezier(.16,.75,.25,1) forwards!important;
+}
+.impact-effect.active{
+  animation: blast-burst .82s cubic-bezier(.16,.75,.25,1) forwards;
+}
+
+/* Clear rock-hit feedback: fall, impact dust, and crumble */
+/* .rock-hit{ */
+  /* filter:drop-shadow(0 9px 6px #000b) brightness(1.18); */
+/* } */
+/* .rock-hit:before{
+  content:'';
+  position:absolute;
+  left:50%;top:78%;
+  width:54px;height:16px;
+  margin-left:-27px;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(214,198,164,.8) 0%,rgba(168,153,128,.38) 45%,transparent 75%);
+  opacity:.95;
+  animation:rock-dust 1.05s ease-out forwards;
+  pointer-events:none;
+} */
+/* @keyframes rock-dust{
+  0%,28%{opacity:0;transform:scale(.25) translateY(-2px)}
+  45%{opacity:.95;transform:scale(1.15) translateY(0)}
+  100%{opacity:0;transform:scale(1.9) translateY(5px)}
+} */
